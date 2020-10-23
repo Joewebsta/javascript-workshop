@@ -3,17 +3,16 @@
 // adding letters until the full word is completed.
 
 function spellOut(word) {
-  let substring = '';
-
-  let spelledOutArray = word.split('').reduce((array, letter) => {
-    substring += letter;
-    array.push(substring);
+  return word.split('').reduce((array, letter, idx) => {
+    if (idx === 0) {
+      array.push(letter);
+      return array;
+    }
+    
+    array.push(array[idx - 1] + letter);
     return array;
   }, []);
-
-  return spelledOutArray;
 }
-
 
 console.log(spellOut("bee"));
 // ["b", "be", "bee"]
