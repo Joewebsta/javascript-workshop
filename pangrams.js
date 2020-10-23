@@ -12,19 +12,25 @@ function isPangram(string) {
   let letterFreq = string.split('').reduce((letterFreq, currentLetter) => {
     currentLetter = currentLetter.toLowerCase();
 
-    if (currentLetter === ' ' || currentLetter === '_') return letterFreq;
-    
-    if (!letterFreq[currentLetter]) {
-      letterFreq[currentLetter] = 1;
-      return letterFreq;
-    }
-
-    letterFreq[currentLetter] += 1;
-    return letterFreq;
+    if (isSpecialCharacter(currentLetter)) return letterFreq;
+    return updateLetterFreq(letterFreq, currentLetter);
   }, {});
 
-  let letterFreqVals = Object.values(letterFreq);
-  return (letterFreqVals.length === 26);
+  return Object.values(letterFreq).length === 26;
+}
+
+function isSpecialCharacter(currentLetter) {
+  return (currentLetter === ' ' || currentLetter === '_');
+}
+
+function updateLetterFreq(letterFreq, currentLetter) {
+  if (!letterFreq[currentLetter]) {
+    letterFreq[currentLetter] = 1;
+    return letterFreq;
+  }
+
+  letterFreq[currentLetter] += 1;
+  return letterFreq;
 }
 
 console.log(isPangram('abcdefghijklmnopqrstuvwxyz'));
